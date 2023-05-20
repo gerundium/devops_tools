@@ -15,6 +15,3 @@ if [[ $(lsb_release --id | grep -o "Ubuntu" | wc -l) -eq 1 ]]; then
     sudo apt update
     sudo apt install virtualbox virtualbox-ext-pack -y
 fi
-
-## Vagrant specific
-vagrant plugin install vagrant-disksize

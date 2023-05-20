@@ -16,3 +16,5 @@ if [[ $(lsb_release --id | grep -o "Ubuntu" | wc -l) -eq 1 ]]; then
     sudo apt install vagrant -y
 fi
 
+## Vagrant specific
+vagrant plugin install vagrant-disksize yaml
