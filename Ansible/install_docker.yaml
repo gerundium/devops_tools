@@ -47,3 +47,9 @@
     - name: Install Docker Module for Python
       pip:
         name: docker
+    
+    - name: adding existing user to group docker
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
