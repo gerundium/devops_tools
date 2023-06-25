@@ -11,5 +11,5 @@ ansible-playbook playbooks/install_docker.yaml --inventory-file inventoiries/hos
 ## Run Ansible in a Docker container
 
 ```bash
-docker run --rm -v ./examples:/examples docker pull eiboo9uu/dbc-ansible:v20230625-1 /bin/bash -c "ansible-playbook -i /examples/example-inventory.ini examples/example-playbook-ping.yaml"
+docker run --rm -v ./examples:/examples eiboo9uu/dbc-ansible:v20230625-1 /bin/bash -c "ansible-playbook -i /examples/example-inventory.ini /examples/example-playbook-ping.yaml"
 ```
