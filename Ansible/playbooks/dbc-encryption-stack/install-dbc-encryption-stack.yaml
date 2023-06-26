@@ -1,0 +1,50 @@
+---
+# ---
+# This playboot installs my encryption tools
+# ---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+    # Install Mozilla Sops
+    - name: Get latest Sops version
+      ansible.builtin.shell: |
+        curl --silent https://api.github.com/repos/mozilla/sops/releases/latest |\
+        jq -r '.tag_name'
+      register: sops_latest
+    - name: debug
+      debug:
+        msg: "sops_latest: {{ sops_latest.stdout }}" # not required. The customized message that is printed. If omitted, prints a generic message.
+    - name: Install sops deb
+      apt:
+        deb: "https://github.com/mozilla/sops/releases/download/{{ sops_latest.stdout }}/sops_{{ sops_latest.stdout | regex_replace('^v', '') }}_amd64.deb"
+
+    # Install Age
+    - name: Get latest Age version
+      ansible.builtin.shell: |
+        curl --silent https://api.github.com/repos/FiloSottile/age/releases/latest |\
+        jq -r '.tag_name'
+      register: age_latest
+    - name: debug
+      debug:
+        msg: "age_latest: {{ age_latest.stdout }}" # not required. The customized message that is printed. If omitted, prints a generic message.
+    - name: Unarchive a file that needs to be downloaded 
+      ansible.builtin.unarchive:
+        src: https://github.com/FiloSottile/age/releases/download/{{ age_latest.stdout }}/age-{{ age_latest.stdout }}-linux-amd64.tar.gz
+        dest: /tmp
+        remote_src: yes
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "/usr/local/bin/"
+        owner: root
+        group: root
+        mode: 0755
+      with_fileglob:
+        - "/tmp/age/age*"
