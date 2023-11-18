@@ -5,7 +5,7 @@
 # --
 ## Check if installed
 if command -v ansible > /dev/null 2>&1; then
-    echo "[info]: Ansible installed."
+    echo "[info]: Ansible already installed."
     exit
 fi
 
