@@ -17,4 +17,4 @@ if [[ $(lsb_release --id | grep -o "Ubuntu" | wc -l) -eq 1 ]]; then
 fi
 
 ## Vagrant specific
-vagrant plugin install vagrant-disksize yaml
+vagrant plugin install vagrant-disksize vagrant-vbguest
