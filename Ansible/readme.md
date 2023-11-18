@@ -3,7 +3,13 @@
 ## TL;DR
 
 ```bash
-ansible-galaxy collection install -r requirements.yml
+ansible-galaxy collection install -r prerequisites/requirements.yml
 
-ansible-playbook install_docker.yaml --inventory-file hosts
+ansible-playbook playbooks/install_docker.yaml --inventory-file inventoiries/hosts
+```
+
+## Run Ansible in a Docker container
+
+```bash
+docker run --rm -v ./examples:/examples docker pull eiboo9uu/dbc-ansible:v20230625-1 /bin/bash -c "ansible-playbook -i /examples/example-inventory.ini examples/example-playbook-ping.yaml"
 ```

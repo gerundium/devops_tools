@@ -1,4 +1,7 @@
 ---
+# ---
+# This playboot installs Docker
+# ---
 - hosts: all
   become: true
   vars:
